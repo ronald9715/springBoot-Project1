@@ -84,16 +84,14 @@ public class SaleController {
         List<IProcedureDTO> list = service.callProcedure4(idClient);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
-    @GetMapping("/mostexpensive")
-    public ResponseEntity<SaleDTO> mostExpensive() throws Exception{
-        Sale sale = service.getSaleMostExpensiveSale();
+    @GetMapping("/lessexpensive")
+    public ResponseEntity<SaleDTO> getLessExpensive() throws Exception{
+        Sale sale = service.getLessExpensive();
         return new ResponseEntity<>(mapper.map(sale, SaleDTO.class), HttpStatus.OK);
     }
-
-    @GetMapping("/lessexpensive")
-    public ResponseEntity<SaleDTO> lessExpensive() throws Exception{
-        Sale sale = service.getLessExpensive();
+    @GetMapping("/mostexpensive")
+    public ResponseEntity<SaleDTO> getMostExpensive() throws Exception{
+        Sale sale = service.getSaleMostExpensiveSale();
         return new ResponseEntity<>(mapper.map(sale, SaleDTO.class), HttpStatus.OK);
     }
 
