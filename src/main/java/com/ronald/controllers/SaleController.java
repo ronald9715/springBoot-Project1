@@ -104,8 +104,7 @@ public class SaleController {
     }
     @GetMapping("/countbyseller")
     public ResponseEntity<Map<String,Long>> getSalesCountBySeller() throws Exception{
-        Map<String, Long> count = service.getSalesCountBySeller();
-        return new ResponseEntity<>(count, HttpStatus.OK);
+        return new ResponseEntity<>(service.getSalesCountBySeller(), HttpStatus.OK);
     }
 
 
