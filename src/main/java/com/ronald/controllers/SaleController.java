@@ -104,6 +104,11 @@ public class SaleController {
     public ResponseEntity<Map<String,Long>> getSalesCountBySeller() throws Exception{
         return new ResponseEntity<>(service.getSalesCountBySeller(), HttpStatus.OK);
     }
+    @GetMapping("/bestproduct")
+    public ResponseEntity<Map<String,Double>> getMostSellProduct() throws Exception{
+        Map<String,Double> bestProduct= service.getMostSellProduct();
+        return new ResponseEntity<>(bestProduct, HttpStatus.OK);
+    }
 
 
 }

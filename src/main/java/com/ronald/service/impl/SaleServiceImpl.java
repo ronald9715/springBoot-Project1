@@ -3,6 +3,7 @@ package com.ronald.service.impl;
 import com.ronald.dto.IProcedureDTO;
 import com.ronald.dto.ProcedureDTO;
 import com.ronald.model.Sale;
+import com.ronald.model.SaleDetail;
 import com.ronald.repo.IGenericRepo;
 import com.ronald.repo.ISaleRepo;
 import com.ronald.service.ISaleService;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.springframework.data.util.Pair.toMap;
 
 @Service
 public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleService {
@@ -82,6 +86,22 @@ public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleSer
         Map<String, Long> countByUser = repo.findAll().stream()
                         .collect(Collectors.groupingBy(e->e.getUser().getUserName(), Collectors.counting()));
         return countByUser;
+    }
+
+    @Override
+    public Map<String, Double> getMostSellProduct() {
+        Stream<List<SaleDetail>> stream =repo.findAll().stream().map(e->e.getDetails());// Recuperamos todos los Sale Details
+        Stream<SaleDetail> streamDetail = stream.flatMap(Collection::stream);//Los desagregamos
+        Map<String, Double> byProduct = streamDetail
+                                        .collect(Collectors.groupingBy(d->d.getProduct().getName(),Collectors.summingDouble(SaleDetail::getQuantity)));
+        return byProduct.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue,newValue)->oldValue,LinkedHashMap::new)
+                );
     }
 
 }
