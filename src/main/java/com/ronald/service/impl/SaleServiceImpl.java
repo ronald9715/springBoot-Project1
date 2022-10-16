@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleService {
@@ -68,6 +67,15 @@ public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleSer
                 .min(Comparator.comparing(Sale::getTotal))
                 .orElse(new Sale());
         return sale;
+    }
+
+    @Override
+    public String getBestSalePerson() {
+         Map<String, Double> byUser = repo.findAll().stream()
+                        .collect(Collectors.groupingBy(e->e.getUser().getUserName(), Collectors.summingDouble(e->e.getTotal())));
+         String user = Collections.max(byUser.entrySet(), Comparator.comparingDouble(Map.Entry::getValue)).getKey();
+
+        return user;
     }
 
 }

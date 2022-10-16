@@ -20,6 +20,7 @@ public interface ISaleService extends ICRUD<Sale, Integer>{
     Sale getSaleMostExpensiveSale();
 
     Sale getLessExpensive();
+    String getBestSalePerson();
 
 
 }

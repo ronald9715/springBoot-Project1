@@ -96,5 +96,11 @@ public class SaleController {
         return new ResponseEntity<>(mapper.map(sale, SaleDTO.class), HttpStatus.OK);
     }
 
+    @GetMapping("/bestseller")
+    public ResponseEntity<String> getBestSeller() throws Exception{
+        String str = service.getBestSalePerson();
+        return  new ResponseEntity<>(str, HttpStatus.OK);
+    }
+
 
 }
