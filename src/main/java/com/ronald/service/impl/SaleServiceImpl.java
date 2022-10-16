@@ -78,6 +78,13 @@ public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleSer
         return user;
     }
 
+    @Override
+    public Map<String, Long> getSalesCountBySeller() {
+        Map<String, Long> countByUser = repo.findAll().stream()
+                        .collect(Collectors.groupingBy(e->e.getUser().getUserName(), Collectors.counting()));
+        return countByUser;
+    }
+
 }
 
 

@@ -6,6 +6,7 @@ import com.ronald.model.Sale;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 //Indicamos la lista de Servicios u Operaciones que se va a realizar
 //Extiende de la interfaz ICRUD que ya tiene todas las operaciones definidas para realizar el CRUD
@@ -21,6 +22,7 @@ public interface ISaleService extends ICRUD<Sale, Integer>{
 
     Sale getLessExpensive();
     String getBestSalePerson();
+    Map<String, Long> getSalesCountBySeller();
 
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -100,6 +101,11 @@ public class SaleController {
     public ResponseEntity<String> getBestSeller() throws Exception{
         String str = service.getBestSalePerson();
         return  new ResponseEntity<>(str, HttpStatus.OK);
+    }
+    @GetMapping("/countbyseller")
+    public ResponseEntity<Map<String,Long>> getSalesCountBySeller() throws Exception{
+        Map<String, Long> count = service.getSalesCountBySeller();
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
 
