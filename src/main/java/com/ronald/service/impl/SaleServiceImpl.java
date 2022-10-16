@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -51,6 +52,24 @@ public class SaleServiceImpl extends CRUDImpl<Sale, Integer> implements ISaleSer
     public List<IProcedureDTO> callProcedure4(Integer idClient) {
         return repo.callProcedure4(idClient);
     }
+
+    @Override
+    public Sale getSaleMostExpensiveSale() {
+        //MAX y Comparar por Maximo
+        Sale sale = repo.findAll().stream()
+                .max(Comparator.comparing(Sale::getTotal))
+                .orElse(new Sale());
+        return sale;
+    }
+
+    @Override
+    public Sale getLessExpensive() {
+        Sale sale = repo.findAll().stream()
+                .min(Comparator.comparing(Sale::getTotal))
+                .orElse(new Sale());
+        return sale;
+    }
+
 }
 
 

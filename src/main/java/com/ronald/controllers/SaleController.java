@@ -84,5 +84,17 @@ public class SaleController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/mostexpensive")
+    public ResponseEntity<SaleDTO> mostExpensive() throws Exception{
+        Sale sale = service.getSaleMostExpensiveSale();
+        return new ResponseEntity<>(mapper.map(sale, SaleDTO.class), HttpStatus.OK);
+    }
+
+    @GetMapping("/lessexpensive")
+    public ResponseEntity<SaleDTO> lessExpensive() throws Exception{
+        Sale sale = service.getLessExpensive();
+        return new ResponseEntity<>(mapper.map(sale, SaleDTO.class), HttpStatus.OK);
+    }
+
 
 }

@@ -17,6 +17,9 @@ public interface ISaleService extends ICRUD<Sale, Integer>{
     List<IProcedureDTO> callProcedure3();
     List<IProcedureDTO> callProcedure4(Integer idClient);
 
+    Sale getSaleMostExpensiveSale();
+
+    Sale getLessExpensive();
 
 
 }
