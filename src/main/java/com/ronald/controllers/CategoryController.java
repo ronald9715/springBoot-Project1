@@ -52,7 +52,6 @@ public class CategoryController {
     @PutMapping
     public ResponseEntity<CategoryDTO> update(@Valid @RequestBody CategoryDTO dto) throws Exception{
         Category obj = service.readById(dto.getId());
-        System.out.println(obj.toString());
         if(obj == null){
             throw new ModelNotFoundException("ID NOT FOUND: "+ dto.getId());
         }
