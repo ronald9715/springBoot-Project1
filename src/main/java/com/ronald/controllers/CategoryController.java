@@ -8,6 +8,8 @@ import com.ronald.service.impl.CategoryServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,5 +95,24 @@ public class CategoryController {
     public ResponseEntity<List<CategoryDTO>> getByNameAndDescription3() throws Exception{
         List<CategoryDTO> list = service.getByNameAndDescription3().stream().map(category -> mapper.map(category, CategoryDTO.class)).collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    /////////////////////////////
+    @GetMapping("/pagination")
+    public ResponseEntity<Page<CategoryDTO>> findPage(
+            @RequestParam(name = "page",defaultValue = "0") Integer page,
+            @RequestParam(name = "size", defaultValue = "10") Integer size
+    ) throws Exception{
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Category> pageResponse = service.findPage(pageRequest);
+        //Modificacion para retornar el DTO de categoria
+        Page<CategoryDTO> pageResponseDTO = pageResponse.map(category -> new CategoryDTO(category));
+        return new ResponseEntity<>(pageResponseDTO, HttpStatus.OK);
+    }
+    @GetMapping("/order")
+    public ResponseEntity<List<CategoryDTO> > findAllOrder(
+            @RequestParam(name ="param", defaultValue = "ASC") String param) throws Exception{
+        List<CategoryDTO> categories = service.findAllOrder(param).stream().map(category -> mapper.map(category, CategoryDTO.class)).collect(Collectors.toList());
+
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }

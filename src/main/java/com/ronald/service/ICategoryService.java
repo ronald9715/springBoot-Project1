@@ -1,6 +1,8 @@
 package com.ronald.service;
 
 import com.ronald.model.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,4 +14,6 @@ public interface ICategoryService extends ICRUD<Category, Integer>{
     List<Category> getByNameAndDescription1(String name, String description);
     List<Category> getByNameAndDescription2(String name, String description);
     List<Category> getByNameAndDescription3();
+    Page<Category> findPage(Pageable pageable);
+    List<Category> findAllOrder(String param);
 }

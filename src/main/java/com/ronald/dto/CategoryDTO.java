@@ -1,5 +1,6 @@
 package com.ronald.dto;
 
+import com.ronald.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,11 @@ public class CategoryDTO {
     private String descriptionCategory;
     @NotNull
     private boolean enabledCategory;
+
+    public CategoryDTO(Category category) {
+        this.id = category.getIdCategory();
+        this.nameCategory = category.getName();
+        this.descriptionCategory = category.getDescription();
+        this.enabledCategory = category.isEnabled();
+    }
 }
