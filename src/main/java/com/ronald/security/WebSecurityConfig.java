@@ -52,6 +52,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers("/login").permitAll()
                 //.antMatchers("/categories/**").permitAll()
+                .antMatchers("/v3/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
