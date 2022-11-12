@@ -15,7 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@Profile(value = {"development", "production"})
+
 //Esta clase va a interceptar la Peticion HTTP para ver si el token que viaja es correcto
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
