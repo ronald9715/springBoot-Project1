@@ -1,6 +1,7 @@
 package com.ronald.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+@Profile(value = {"development", "production"})
 //Esta clase va a interceptar la Peticion HTTP para ver si el token que viaja es correcto
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
